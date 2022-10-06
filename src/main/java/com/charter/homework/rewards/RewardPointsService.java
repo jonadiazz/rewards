@@ -60,8 +60,6 @@ class RewardPointsService {
         }
         /** initialize reward points at zero */
         int totalRewardPointsSinceDate = 0;
-        // int totalRewardPointsSecondToLastMonth = 0;
-        // int totalRewardPointsThirdToLastMonth = 0;
 
         System.out.println("Searching for customer " + customerId);
         Optional<Customer> foundCustomer = customerRepo.findById(customerId);
