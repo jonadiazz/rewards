@@ -7,6 +7,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +27,20 @@ public class RewardPoints {
     }
 
     @GetMapping(value = "/charter/v1/customer/points")
-    public Integer getCustomerRewardPoints(@RequestParam(required = false) Integer customerId, @RequestParam(required = false) String sinceDate) {
-        LocalDateTime nowMinusThreeMonths = LocalDateTime.now().minusMonths(3);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.ENGLISH);
-        System.out.println("Request to calculate rewards since " + formatter.format(nowMinusThreeMonths));
+    public List<CustomerPoints> getCustomerRewardPoints(@RequestParam(required = false) Integer customerId, @RequestParam(required = false) String sinceDate) {
+        return rewardPointsService.getCustomerRewardsPerMonth(customerId);
+        // LocalDateTime nowMinusThreeMonths = LocalDateTime.now().minusMonths(3);
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy", Locale.ENGLISH);
+        // System.out.println("Request to calculate rewards since " + formatter.format(nowMinusThreeMonths));
 
-        String nowMinusThree = formatter.format(nowMinusThreeMonths);
-        return rewardPointsService.getCustomerRewardPointsSince(customerId, (null != sinceDate) ? sinceDate : nowMinusThree);
+        // String nowMinusThree = formatter.format(nowMinusThreeMonths);
+        // return rewardPointsService.getCustomerRewardPointsSince(customerId, (null != sinceDate) ? sinceDate : nowMinusThree);
     }
 
+    // @GetMapping(value = "/charter/v1/customers/points")
+    // public List<CustomerPoints> getCustomerRewardPointsLastMonth(@RequestParam(required = false) Integer customerId, @RequestParam(required = false) String sinceDate) {
+        
+    //     return getCustomerRewardsPerMonth(customerId);
+    //     // return rewardPointsService.getCustomerRewardPointsSince(customerId, (null != sinceDate) ? sinceDate : nowMinusThree);
+    // }
 }
-
-
-
-
